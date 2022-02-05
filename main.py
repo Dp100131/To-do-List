@@ -1,9 +1,15 @@
 from flask import Flask, request, make_response, redirect, render_template
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
 
 todos = ['Comprar café.', 'Enviar solicitud de compra.', 'Entregar producto.']
 
+@app.errorhandler(404)
+def not_fount(error):
+    
+    return render_template('404.html', error=error)
 
 @app.route('/')
 def index():
