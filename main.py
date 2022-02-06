@@ -76,3 +76,19 @@ def hello():
 
 if __name__ == '__main__':
     app.run()
+
+
+
+# Codigo henry
+
+def porcentError(approx, exact):
+
+    num = approx - exact
+
+    if (num<0):
+
+        num *= -1
+    
+    error = (num/exact)*100
+
+    return error
