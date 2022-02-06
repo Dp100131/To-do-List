@@ -1,25 +1,12 @@
-from imghdr import tests
 from flask import Flask, request, make_response, redirect, render_template, session, url_for, flash
 from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField, SubmitField, FileField
-from wtforms.validators import DataRequired
 import unittest
+from app import create_app
+from app.form import LoginForm
 
-app = Flask(__name__)
-bootstrap = Bootstrap(app)
-
-app.config['SECRET_KEY'] = 'SUPER SECRETO'
-
+app = create_app()
 
 todos = ['Comprar cafe', 'Enviar solicitud de compra', 'Entregar video a productor ']
-
-
-class LoginForm(FlaskForm):
-    username = StringField('Nombre de usuario', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Enviar')
-    file = FileField('File here')
 
 @app.cli.command()
 
@@ -67,7 +54,7 @@ def hello():
 
         username = login_form.username.data
         session['username'] = username
-
+ 
         flash('Nombre de usuario registrado con éxito')
 
         return redirect(url_for('index'))
@@ -76,19 +63,3 @@ def hello():
 
 if __name__ == '__main__':
     app.run()
-
-
-
-# Codigo henry
-
-def porcentError(approx, exact):
-
-    num = approx - exact
-
-    if (num<0):
-
-        num *= -1
-    
-    error = (num/exact)*100
-
-    return error
