@@ -1,25 +1,34 @@
 {% extends 'base.html' %}
 {% import 'macros.html' as macros %}
+
 {% block title %}
-
-    {{super}}
-    Bienvenido 
-
+    {{ super() }}
+    Bienvenido
 {% endblock %}
 
 {% block content %}
     {% if user_ip %}
         <h1>Hello World Platzi, tu IP es {{ user_ip }}</h1>
     {% else %}
-        <a href="{{ url_for('index') }}"> Ir a inicio </a>
+        <a href="{{ url_for('index') }}">Ir a inicio</a>
     {% endif %}
 
+    <div class="container">
+
+        <form action="{{ url_for('hello') }})" method="post">
+
+            {{ login_form.username.label }}
+            {{ login_form.username }}
+            
+
+        </form>
+
+    </div>
+
     <ul>
-
-    {% for i in todos %}
-        {{macros.render_todo(i)}}
-    {% endfor %}
-
+        {% for todo in todos %}
+            {{ macros.render_todo(todo) }}
+        {% endfor %}
     </ul>
 {% endblock %}
 
